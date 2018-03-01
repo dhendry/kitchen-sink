@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package main;
+
+message SomeMessage {
+    string some_string = 1;
+    int32 some_int = 2;
+
+    SomeEnum some_enum = 3;
+ }
+
+enum SomeEnum {
+    NOTHING = 0;
+    SOMETHING = 1;
+    ELSE = 2;
+}
