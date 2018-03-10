@@ -63,6 +63,15 @@ type SomeType struct {
 	f2 string
 }
 
+func (st SomeType) String() string {
+	return fmt.Sprintf("%#v", st)
+	//res, ok  := json.Marshal(st)
+	//if ok != nil {
+	//	panic(ok)
+	//}
+	//return string(res)
+}
+
 func DoSomething(st *SomeType) () {
 	st.f1 = 7
 	fmt.Printf("DoSomething: %s\n", st)

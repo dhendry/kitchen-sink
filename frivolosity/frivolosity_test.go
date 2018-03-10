@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/dhendry/kitchen-sink/solitaire/model"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -66,4 +67,8 @@ func TestNil(t *testing.T) {
 
 func (st *SomeType) IsNil() bool {
 	return st == nil
+}
+
+func TestSolitaireModel(t *testing.T) {
+	assert.Equal(t, 2, int(model.Suit_DIAMONDS))
 }

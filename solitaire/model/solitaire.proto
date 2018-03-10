@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package kitchensink.solitaire.model;
+
+option go_package = "model";
+
+// Ordering here is based on the "bridge standard" which uses ascending alphabetical ordering.
+// Not that it really matters...
+// https://en.wikipedia.org/wiki/Suit_(cards)#Ranking_of_suits
+enum Suit {
+    NO_SUIT = 0;
+    CLUBS = 1;
+    DIAMONDS = 2;
+    HEARTS = 3;
+    SPADES = 4;
+}
+
+enum Rank {
+    NO_RANK = 0;
+    ACE = 1;
+    TWO = 2;
+    THREE = 3;
+    FOUR = 4;
+    FIVE = 5;
+    SIX = 6;
+    SEVEN = 7;
+    EIGHT = 8;
+    NINE = 9;
+    TEN = 10;
+    JACK = 11;
+    QUEEN = 12;
+    KING = 13;
+}
+
+message Card {
+    Rank rank = 1;
+    Suit suit = 2;
+
+    // False means face down obviously
+    bool face_up = 3;
+}
+
+enum PileType {
+    NO_PILE = 0;
+
+    // The main deck
+    // Cards are always face down in this pile
+    DECK = 1;
+
+    // Turn cards over from the deck to the waste pile to cycle through the deck.
+    // If there are cards in this pile, at least the top card should be visible
+    WASTE = 2;
+
+    TABLEAU_0 = 10;
+    TABLEAU_1 = 11;
+    TABLEAU_2 = 12;
+    TABLEAU_3 = 13;
+    TABLEAU_4 = 14;
+    TABLEAU_5 = 15;
+    TABLEAU_6 = 16;
+
+    FOUNDATION_0 = 20;
+    FOUNDATION_1 = 21;
+    FOUNDATION_2 = 22;
+    FOUNDATION_3 = 23;
+}
+
+message Pile {
+    // NO_PILE is invalid
+    PileType pile_type = 1;
+
+    // Cards are order from the bottom of the pile to the top of the pile.
+    // The card at index 0 is at the bottom, and the card that is at index len() is at the top (ie: typically playable).
+    repeated Card cards = 2;
+}
+
+message GameState {
+    GameId game_id = 1;
+    message GameId {
+        int64 seed = 1;
+    }
+
+    GameId state_token = 2;
+    message StateToken  {
+
+    }
+
+    // Only one pile of each type should be present
+    repeated Pile piles = 10;
+}
+
+message Move {
+
+}
