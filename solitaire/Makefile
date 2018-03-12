@@ -2,6 +2,9 @@
 build: generate
 	go build ./...
 
+#run-webui: build
+
+
 test: build
 	go test ./...
 

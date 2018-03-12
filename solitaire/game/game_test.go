@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/dhendry/kitchen-sink/solitaire/model"
 	"github.com/stretchr/testify/assert"
 )
 

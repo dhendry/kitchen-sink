@@ -70,25 +70,32 @@ message Pile {
     PileType pile_type = 1;
 
     // Cards are order from the bottom of the pile to the top of the pile.
-    // The card at index 0 is at the bottom, and the card that is at index len() is at the top (ie: typically playable).
+    // The card at index 0 is at the bottom, and the card that is at index len()-1 is at the top (ie: typically playable).
     repeated Card cards = 2;
 }
 
 message GameState {
+    // Fixed for the duration of the game across all moves.
     GameId game_id = 1;
+    // Game IDs must be globally unique and used only once
     message GameId {
         int64 seed = 1;
+        int64 nounce = 2;
     }
 
-    GameId state_token = 2;
+    StateToken state_token = 2;
     message StateToken  {
 
     }
 
-    // Only one pile of each type should be present
+    // Only one pile of each type should be present. Piles SHOULD (but are not guaranteed) to be ordered by their
+    // PileType tag.
     repeated Pile piles = 10;
 }
 
 message Move {
+    PileType src_pile = 1;
+    PileType dest_pile = 2;
 
+    int32 num_cards = 3;
 }

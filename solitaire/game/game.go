@@ -48,10 +48,50 @@ func init() {
 	}
 }
 
-func NewShuffledDeck() (result []model.Card) {
-	result = make([]model.Card, 52, 52)
+func NewShuffledDeck() (result []*model.Card) {
+	result = make([]*model.Card, 52)
 	for i, v := range rand.Perm(52) {
-		result[i] = allCards[v]
+		// Copy the value of the card so the returned deck is mutable
+		cardCopy := allCards[v]
+		result[i] = &cardCopy
 	}
+	return
+}
+
+func NewGameState() (gs *model.GameState) {
+	// Create the game state
+	gs = &model.GameState{}
+
+	// Initialize all the relevant piles
+	gs.Piles = make([]*model.Pile, 0, len(model.PileType_values)-1)
+	for _, pileType := range model.PileType_values {
+		if pileType == model.PileType_NO_PILE {
+			continue
+		}
+		gs.Piles = append(gs.Piles, &model.Pile{PileType: pileType})
+	}
+
+	srcDeck := NewShuffledDeck()
+	srcDeckIdx := 0
+
+	// Deal into the tableau piles:
+	for tpIdx := 0; tpIdx < 7; tpIdx++ {
+		// Note that this is taking advantage of the continuous range property of pile indexes
+		// It could be a bit more efficient but we really dont care here
+		pile := gs.GetPile(model.PileType(int(model.PileType_TABLEAU_0) + tpIdx))
+
+		// Grab a range of the main deck for the specific tableau pile
+		endDeckIdx := srcDeckIdx + 1 + tpIdx
+		pile.Cards = append(pile.Cards, srcDeck[srcDeckIdx:endDeckIdx]...) // NOTE that this NOT a slice from the main deck but a copy (no shared array)
+		pile.Cards[len(pile.Cards) - 1].FaceUp = true
+
+		srcDeckIdx = endDeckIdx
+	}
+
+	// Remainder of the cards go into the deck
+	// Note that the append here is to force a copy to a new array. Its not technically necessary but is done proactively
+	// to avoid any sort of shared mutable backing arrays
+	gs.GetPile(model.PileType_DECK).Cards = append([]*model.Card(nil), srcDeck[srcDeckIdx:]...)
+
 	return
 }

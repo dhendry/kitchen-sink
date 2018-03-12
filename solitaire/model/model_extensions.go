@@ -1,5 +1,20 @@
 package model
 
+import "sort"
+
+// Sorted by tag number
+var PileType_values []PileType
+
+func init() {
+	PileType_values = make([]PileType, len(PileType_value))
+	i := 0
+	for _, v := range PileType_value {
+		PileType_values[i] = PileType(v)
+		i++
+	}
+	sort.Slice(PileType_values, func(i, j int) bool { return int32(PileType_values[i]) < int32(PileType_values[j]) })
+}
+
 func (s Suit) IsBlack() bool {
 	switch s {
 	case Suit_CLUBS, Suit_SPADES:
