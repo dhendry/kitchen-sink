@@ -76,11 +76,15 @@ message Pile {
 
 message GameState {
     // Fixed for the duration of the game across all moves.
-    GameId game_id = 1;
+    Id game_id = 1;
     // Game IDs must be globally unique and used only once
-    message GameId {
+    message Id {
         int64 seed = 1;
+        // Note that this nounce only technically needs to be unique within the context of the seed, but should
+        // obviously by cryptographically securely generated
         int64 nounce = 2;
+
+        // Note: an additional "seed version" field MAY be introduced if the mechanism fo
     }
 
     StateToken state_token = 2;
@@ -97,5 +101,6 @@ message Move {
     PileType src_pile = 1;
     PileType dest_pile = 2;
 
+    // Number of cards counted from the "top" (largest index) to the bottom (least index) in the src deck
     int32 num_cards = 3;
 }

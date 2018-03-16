@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 )
 
 func RegisterApiHandlers() {
-	http.HandleFunc("/new", newGame)
+	http.HandleFunc("/v1/api/new", newGame)
 }
 
 func newGame(resp http.ResponseWriter, req *http.Request) {
