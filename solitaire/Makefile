@@ -2,8 +2,8 @@
 build: generate
 	go build ./...
 
-#run-webui: build
-
+run-webui:
+	cd webui && go run main.go
 
 test: build
 	go test ./...

@@ -13,7 +13,7 @@ func main() {
 
 	// TODO: Configurable port
 	log.Println("Starting server")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8081", nil))
 
 	log.Println("Exiting")
 }
