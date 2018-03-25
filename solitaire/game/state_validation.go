@@ -4,6 +4,8 @@ import (
 	"github.com/dhendry/kitchen-sink/solitaire/model"
 )
 
+// This is considered a fatal error within the context of a particular game and is used to indicate the game is no longer
+// playable
 type ValidationError struct {
 	msg string
 }
@@ -35,7 +37,6 @@ func correctPilesAndPileOrder(gs *model.GameState) error {
 	}
 
 	for i, v := range model.PileType_values[1:] {
-		// TODO: Nil check here with the getter
 		if gs.Piles[i].GetPileType() != v {
 			return &ValidationError{msg: "pile out of order, expected " + v.String()}
 		}

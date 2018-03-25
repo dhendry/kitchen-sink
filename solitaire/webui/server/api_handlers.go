@@ -1,6 +1,7 @@
 package server
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/dhendry/kitchen-sink/solitaire/game"
@@ -8,7 +9,7 @@ import (
 )
 
 func RegisterApiHandlers() {
-	http.HandleFunc("/v1/api/new", newGame)
+	http.HandleFunc("/api/v1/new", newGame)
 }
 
 func newGame(resp http.ResponseWriter, req *http.Request) {
@@ -20,4 +21,6 @@ func newGame(resp http.ResponseWriter, req *http.Request) {
 		http.Error(resp, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	log.Println("Served new game to", req.RemoteAddr, req.UserAgent())
 }

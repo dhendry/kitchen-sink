@@ -59,3 +59,11 @@ func (gs *GameState) GetPile(pt PileType) *Pile {
 
 	return nil
 }
+
+func (pt PileType) IsFoundation() bool {
+	return pt >= PileType_FOUNDATION_0 && pt <= PileType_FOUNDATION_3
+}
+
+func (pt PileType) IsTableau() bool {
+	return pt >= PileType_TABLEAU_0 && pt <= PileType_TABLEAU_6
+}

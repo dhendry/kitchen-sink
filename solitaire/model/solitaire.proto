@@ -79,17 +79,17 @@ message GameState {
     Id game_id = 1;
     // Game IDs must be globally unique and used only once
     message Id {
-        int64 seed = 1;
-        // Note that this nounce only technically needs to be unique within the context of the seed, but should
+        sfixed64 seed = 1;
+        // Note that this nonce only technically needs to be unique within the context of the seed, but should
         // obviously by cryptographically securely generated
-        int64 nounce = 2;
+        sfixed64 nonce = 2;
 
         // Note: an additional "seed version" field MAY be introduced if the mechanism fo
     }
 
     StateToken state_token = 2;
     message StateToken  {
-
+        int32 move_num = 1;
     }
 
     // Only one pile of each type should be present. Piles SHOULD (but are not guaranteed) to be ordered by their
