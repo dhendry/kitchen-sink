@@ -1,3 +1,14 @@
 package db
 
-//FOREIGN KEY (game_seed, game_nonce) REFERENCES `solitaire.game_sates` (seed, nonce)
+import "github.com/dhendry/kitchen-sink/solitaire/model"
+
+
+func GetSolitaireDataAccess() SolitaireDataAccess {
+
+	return nil
+}
+
+
+type SolitaireDataAccess interface {
+	SaveNewGameState(gs *model.GameState) error
+}

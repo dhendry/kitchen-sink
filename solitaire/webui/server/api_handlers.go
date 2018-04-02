@@ -10,6 +10,7 @@ import (
 
 func RegisterApiHandlers() {
 	http.HandleFunc("/api/v1/new", newGame)
+	http.HandleFunc("/api/v1/move", move)
 }
 
 func newGame(resp http.ResponseWriter, req *http.Request) {
@@ -23,4 +24,8 @@ func newGame(resp http.ResponseWriter, req *http.Request) {
 	}
 
 	log.Println("Served new game to", req.RemoteAddr, req.UserAgent())
+}
+
+func move(resp http.ResponseWriter, req *http.Request) {
+
 }

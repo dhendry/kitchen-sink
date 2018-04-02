@@ -135,3 +135,10 @@ func TestSlices(t *testing.T) {
 	assert.Equal(t, []int{20, 22, 7, 8, 9}, secondHalf) // Still pointing at the original array
 	assert.Equal(t, []int{0, 1, 2, 3, 4, 20, 22, 7, 8, 9}, ints)
 }
+
+func TestNumberDivider(t *testing.T) {
+	fmt.Printf("%d\n", 10 >> 1)
+	fmt.Printf("%d\n", 16 >> 1)
+	fmt.Printf("%d\n", 22 >> 1)
+
+}
