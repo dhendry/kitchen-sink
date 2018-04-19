@@ -1,6 +1,8 @@
 .DEFAULT_GOAL := help
 
 build: generate ## Basically just a go build, pluse generate files
+	# I THINK this is where dep ensure should be... ???
+	dep ensure
 	go build ./...
 
 run-webui: generate ## .
@@ -35,7 +37,7 @@ clean-generated: ## .
 	#DONT LIKE THIS:
 	find ./ -iname "*.swagger.json" -type file -delete
 
-goget: ## .
+goget: ## Deprecated in favor of dep
 	go get -u github.com/jinzhu/gorm
 	#go get -u github.com/jmoiron/sqlx
 	go get -u github.com/stretchr/testify
