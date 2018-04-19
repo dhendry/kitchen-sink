@@ -36,6 +36,6 @@ func (ps *PlayServiceImpl) NewGame(ctx context.Context, ngr *NewGameRequest) (gs
 	log.Info(ctx)
 
 	gs = game.NewGameState()
-	db.GetSolitaireDataAccess().SaveNewGameState(gs)
+	db.Db.SaveNewGameState(gs)
 	return
 }

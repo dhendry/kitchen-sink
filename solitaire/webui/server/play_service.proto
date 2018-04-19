@@ -14,17 +14,17 @@ service PlayService {
         };
     }
 
-    rpc Move(MoveRequest) returns (kitchensink.solitaire.model.GameState) {
-        option (google.api.http) = {
-            get: "/api/v2/move"
-        };
-    }
+//    rpc Move(MoveRequest) returns (kitchensink.solitaire.model.GameState) {
+//        option (google.api.http) = {
+//            get: "/api/v2/move"
+//        };
+//    }
 }
 
 message NewGameRequest {
 }
 
-message MoveRequest {
-    kitchensink.solitaire.model.GameState.Id tmp = 2;
-}
+//message MoveRequest {
+//    kitchensink.solitaire.model.GameState.Id tmp = 2;
+//}
 

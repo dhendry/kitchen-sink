@@ -13,6 +13,9 @@
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
 
+# Consider this one - https://github.com/golang/dep/blob/master/docs/FAQ.md#should-i-commit-my-vendor-directory
+vendor/
+
 # Mine
 .idea/
 .DS_Store

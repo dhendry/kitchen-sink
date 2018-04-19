@@ -7,27 +7,20 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var (
-	Db *MySqlSolitaireDataAccess
-)
-
-func foo() {
+func init() {
 	// TODO: Fix root user obviously
-	db, err := sql.Open("mysql", "root:@/solitaire")
+	rawDb, err := sql.Open("mysql", "root:@/solitaire")
 	if err != nil {
 		panic(err)
 	}
 
-	err = db.Ping()
-	if err != nil {
-		panic(err)
-	}
+	Db = &mySqlSolitaireDataAccess{rawDb:rawDb}
 }
 
-type MySqlSolitaireDataAccess struct {
-	Db *sql.DB
+type mySqlSolitaireDataAccess struct {
+	rawDb *sql.DB
 }
 
-func (db *MySqlSolitaireDataAccess) SaveNewGameState(gs *model.GameState) error {
+func (sda *mySqlSolitaireDataAccess) SaveNewGameState(gs *model.GameState) error {
 	return nil
 }
