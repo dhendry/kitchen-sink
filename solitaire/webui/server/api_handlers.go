@@ -1,16 +1,19 @@
 package server
 
 import (
-	"log"
 	"net/http"
 
+	"github.com/dhendry/kitchen-sink/solitaire/db"
 	"github.com/dhendry/kitchen-sink/solitaire/game"
+	"github.com/dhendry/kitchen-sink/solitaire/model"
 	"github.com/golang/protobuf/jsonpb"
+	"golang.org/x/net/context"
 )
 
 func RegisterApiHandlers() {
 	http.HandleFunc("/api/v1/new", newGame)
-	http.HandleFunc("/api/v1/move", move)
+
+
 }
 
 func newGame(resp http.ResponseWriter, req *http.Request) {
@@ -26,6 +29,13 @@ func newGame(resp http.ResponseWriter, req *http.Request) {
 	log.Println("Served new game to", req.RemoteAddr, req.UserAgent())
 }
 
-func move(resp http.ResponseWriter, req *http.Request) {
+type PlayServiceImpl struct {
+}
 
+func (ps *PlayServiceImpl) NewGame(ctx context.Context, ngr *NewGameRequest) (gs *model.GameState, err error){
+	log.Info(ctx)
+
+	gs = game.NewGameState()
+	db.GetSolitaireDataAccess().SaveNewGameState(gs)
+	return
 }

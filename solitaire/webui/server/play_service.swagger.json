@@ -1,0 +1,165 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "webui/server/play_service.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v2/new": {
+      "get": {
+        "operationId": "NewGame",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/modelGameState"
+            }
+          }
+        },
+        "tags": [
+          "PlayService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "GameStateId": {
+      "type": "object",
+      "properties": {
+        "seed": {
+          "type": "string",
+          "format": "int64"
+        },
+        "nonce": {
+          "type": "string",
+          "format": "int64",
+          "title": "Note that this nonce only technically needs to be unique within the context of the seed, but should\nobviously by cryptographically securely generated"
+        }
+      },
+      "title": "Game IDs must be globally unique and used only once"
+    },
+    "GameStateStateToken": {
+      "type": "object",
+      "properties": {
+        "move_num": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "modelCard": {
+      "type": "object",
+      "properties": {
+        "rank": {
+          "$ref": "#/definitions/modelRank"
+        },
+        "suit": {
+          "$ref": "#/definitions/modelSuit"
+        },
+        "face_up": {
+          "type": "boolean",
+          "format": "boolean",
+          "title": "False means face down obviously"
+        }
+      }
+    },
+    "modelGameState": {
+      "type": "object",
+      "properties": {
+        "game_id": {
+          "$ref": "#/definitions/GameStateId",
+          "description": "Fixed for the duration of the game across all moves."
+        },
+        "state_token": {
+          "$ref": "#/definitions/GameStateStateToken"
+        },
+        "piles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelPile"
+          },
+          "description": "Only one pile of each type should be present. Piles SHOULD (but are not guaranteed) to be ordered by their\nPileType tag."
+        }
+      }
+    },
+    "modelPile": {
+      "type": "object",
+      "properties": {
+        "pile_type": {
+          "$ref": "#/definitions/modelPileType",
+          "title": "NO_PILE is invalid"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/modelCard"
+          },
+          "description": "Cards are order from the bottom of the pile to the top of the pile.\nThe card at index 0 is at the bottom, and the card that is at index len()-1 is at the top (ie: typically playable)."
+        }
+      }
+    },
+    "modelPileType": {
+      "type": "string",
+      "enum": [
+        "NO_PILE",
+        "DECK",
+        "WASTE",
+        "TABLEAU_0",
+        "TABLEAU_1",
+        "TABLEAU_2",
+        "TABLEAU_3",
+        "TABLEAU_4",
+        "TABLEAU_5",
+        "TABLEAU_6",
+        "FOUNDATION_0",
+        "FOUNDATION_1",
+        "FOUNDATION_2",
+        "FOUNDATION_3"
+      ],
+      "default": "NO_PILE",
+      "title": "- DECK: The main deck\nCards are always face down in this pile\n - WASTE: Turn cards over from the deck to the waste pile to cycle through the deck.\nIf there are cards in this pile, at least the top card should be visible"
+    },
+    "modelRank": {
+      "type": "string",
+      "enum": [
+        "NO_RANK",
+        "ACE",
+        "TWO",
+        "THREE",
+        "FOUR",
+        "FIVE",
+        "SIX",
+        "SEVEN",
+        "EIGHT",
+        "NINE",
+        "TEN",
+        "JACK",
+        "QUEEN",
+        "KING"
+      ],
+      "default": "NO_RANK"
+    },
+    "modelSuit": {
+      "type": "string",
+      "enum": [
+        "NO_SUIT",
+        "CLUBS",
+        "DIAMONDS",
+        "HEARTS",
+        "SPADES"
+      ],
+      "default": "NO_SUIT",
+      "title": "Ordering here is based on the \"bridge standard\" which uses ascending alphabetical ordering.\nNot that it really matters...\nhttps://en.wikipedia.org/wiki/Suit_(cards)#Ranking_of_suits"
+    }
+  }
+}

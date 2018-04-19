@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package kitchensink.solitaire.webui.server;
+
+import "model/solitaire.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/dhendry/kitchen-sink/solitaire/webui/server";
+
+service PlayService {
+    rpc NewGame(NewGameRequest) returns (kitchensink.solitaire.model.GameState) {
+        option (google.api.http) = {
+            get: "/api/v2/new"
+        };
+    }
+
+    rpc Move(MoveRequest) returns (kitchensink.solitaire.model.GameState) {
+        option (google.api.http) = {
+            get: "/api/v2/move"
+        };
+    }
+}
+
+message NewGameRequest {
+}
+
+message MoveRequest {
+    kitchensink.solitaire.model.GameState.Id tmp = 2;
+}
+

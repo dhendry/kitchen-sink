@@ -2,7 +2,10 @@ syntax = "proto3";
 
 package kitchensink.solitaire.model;
 
-option go_package = "model";
+//option go_package = "model";
+option go_package = "github.com/dhendry/kitchen-sink/solitaire/model";
+//option go_package = "github.com/dhendry/kitchen-sink/solitaire/model;model";
+//option go_package = "model;github.com/dhendry/kitchen-sink/solitaire/model";
 
 // Ordering here is based on the "bridge standard" which uses ascending alphabetical ordering.
 // Not that it really matters...

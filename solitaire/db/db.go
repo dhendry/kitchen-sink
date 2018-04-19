@@ -1,11 +1,13 @@
 package db
 
-import "github.com/dhendry/kitchen-sink/solitaire/model"
+import (
+	"github.com/dhendry/kitchen-sink/solitaire/model"
+)
 
+var SolitaireDataAccess SolitaireDataAccess
 
 func GetSolitaireDataAccess() SolitaireDataAccess {
-
-	return nil
+	return mysql.Db
 }
 
 

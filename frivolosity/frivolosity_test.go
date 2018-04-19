@@ -105,7 +105,7 @@ func TestSlices(t *testing.T) {
 	assert.Equal(t, []int{5, 6, 7, 8, 9}, secondHalf)
 
 	//
-	// Append to the first half
+	// Append to the first hal
 	//
 	firstHalf2 := append(firstHalf, 20)
 	assert.Equal(t, []int{0, 1, 2, 3, 4, 20}, firstHalf2)
@@ -140,5 +140,8 @@ func TestNumberDivider(t *testing.T) {
 	fmt.Printf("%d\n", 10 >> 1)
 	fmt.Printf("%d\n", 16 >> 1)
 	fmt.Printf("%d\n", 22 >> 1)
+}
+
+func TestDefaultMapValuesInStruct(t *testing.T) {
 
 }
